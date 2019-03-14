@@ -11,11 +11,12 @@
 #define servoPin_US     6   	//Ultraschall-Servo     out PWM
 #define trigPin         4   	//Ultraschall-Trigger   out digital
 #define echoPin         5   	//Ultraschall-Echo      in  digital
-#define	SERVO_MIN_US	7+OFFSET_ST
-#define SERVO_MAX_US	23+OFFSET_ST
+#define	SERVO_MIN_US	5
+#define SERVO_MAX_US	27
 
 
 struct timespec Time1, Time2;
+int SArray[30,2];
 
 void servoWriteMS(int pin, int ms){     //specific the unit for pulse(5-25ms) with specific duration output by servo pin: 0.1ms
     if(ms > SERVO_MAX_US) {
@@ -75,10 +76,23 @@ void main(void) {
 	wiringPiISR (echoPin, INT_EDGE_BOTH, &StartStopTimer) ;
 	
 	for (i=SERVO_MIN_US;i<SERVO_MAX_US;i++) {
-		printf("Position %i, Distance %f cm",i, getSonarP(i));
+		SArray[i,0]= getSonarP(i);
 	}
 	for (i=SERVO_MAX_US;i<SERVO_MIN_US;i--) {
-		printf("Position %i, Distance %f cm",i, getSonarP(i));
+		SArray[i,1]= getSonarP(i);
 	}
-		
+	float Fehler =0, Max = 0 , Min = 0;
+	int Minimum=0,Maximum=0;
+	for (i=0;i<30;i++) {
+		Fehler = Fehler+abs(SArray[i,0]-SArray[i,1]);
+		if (SArray[i,0]>Max) {
+			Maximum = i;
+			Max = SArray[i,0];
+		}
+		if ((SArray[i,0]<Min) && (SArray[i,0]>0)) {
+			Minimum = i;
+			Min = SArray[i,0];
+		}
+	}
+	printf("\nMessfehler gesammt: %3.2f \n Minimum %3.2f bei Pos. %2i\n Maximum %3.2f bei Pos. %2i\n", Fehler, Min, Minimum, Max, Maximum);	
 }
