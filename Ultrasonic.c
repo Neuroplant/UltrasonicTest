@@ -46,7 +46,7 @@ float getSonar(void) {
 	digitalWrite(trigPin,HIGH);
     	delayMicroseconds(10);
 	digitalWrite(trigPin,LOW);
-    	delayMicroseconds(5);
+    	delayMicroseconds(10);
 	
 	float puls = Time1.tv_nsec - Time2.tv_nsec;
 	return (puls * 340.0 / 2.0 / 10000.0);
@@ -55,7 +55,7 @@ float getSonar(void) {
 float getSonarP(int angle) {
 	float distance;
 	servoWriteMS(servoPin_US,angle);
-	delay(10);
+	delay(100);
 	distance = getSonar();
 	printf(" %3.2f cm an Position %i \n",distance,angle);
 	return distance;
@@ -74,10 +74,10 @@ void main(void) {
 	
 	wiringPiISR (echoPin, INT_EDGE_BOTH, &StartStopTimer) ;
 	
-	for (i=SERVO_MIN_US;i<(SERVO_MAX_US;i++) {
+	for (i=SERVO_MIN_US;i<SERVO_MAX_US;i++) {
 		printf("Position %i, Distance %f cm",i, getSonarP(i));
 	}
-	for (i=SERVO_MAX_US;i<(SERVO_MIN_US;i--) {
+	for (i=SERVO_MAX_US;i<SERVO_MIN_US;i--) {
 		printf("Position %i, Distance %f cm",i, getSonarP(i));
 	}
 		
