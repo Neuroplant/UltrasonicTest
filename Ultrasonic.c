@@ -85,14 +85,14 @@ void main(void) {
 	float Fehler =0, Max = 0 , Min = 0;
 	int Minimum=0,Maximum=0;
 	for (i=0;i<30;i++) {
-		Fehler = Fehler+abs(SArray[i,0]-SArray[i,1]);
-		if (SArray[i,0]>Max) {
+		Fehler = Fehler+abs(SArray[i][0]-SArray[i,1]);
+		if (SArray[i][0]>Max) {
 			Maximum = i;
-			Max = SArray[i,0];
+			Max = SArray[i][0];
 		}
-		if ((SArray[i,0] < Min) && (SArray[i,0] > 0)) {
+		if ((SArray[i][0] < Min) && (SArray[i][0] > 0)) {
 			Minimum = i;
-			Min = SArray[i,0];
+			Min = SArray[i][0];
 		}
 	}
 	printf("\nMessfehler gesammt: %3.2f \n Minimum %3.2f bei Pos. %2i\n Maximum %3.2f bei Pos. %2i\n", Fehler, Min, Minimum, Max, Maximum);	
