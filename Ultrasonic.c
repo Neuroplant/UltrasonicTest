@@ -37,10 +37,10 @@ void servoWriteMS(int pin, int ms){     //specific the unit for pulse(5-25ms) wi
 void StartStopTimer (void) {
 	if (digitalRead(echoPin)==HIGH) {
 		clock_gettime(CLOCK_REALTIME, &Time1);
-		 StartTime  = rTime.tv_nsec;
+		 StartTime  = Time1.tv_nsec;
 	}else{
-		clock_gettime(CLOCK_REALTIME, &Time2);
-		EndTime = rTime.tv_nsec;
+		clock_gettime(CLOCK_REALTIME, &Time1);
+		EndTime = Time1.tv_nsec;
 	}
 }
 		
