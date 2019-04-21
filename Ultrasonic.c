@@ -16,8 +16,8 @@
 #define SERVO_MAX_US	27
 
 
-struct timespec Time1, Time2, StartTime, EndTime;
-int SArray[30][2];
+struct timespec Time1, Time2, StartTime, EndTime, rTime;
+float SArray[30][2];
 
 void servoWriteMS(int pin, int ms){     //specific the unit for pulse(5-25ms) with specific duration output by servo pin: 0.1ms
     if(ms > SERVO_MAX_US) {
@@ -66,7 +66,6 @@ float getSonarP(int angle) {
 void main(void) {
 	if(wiringPiSetup() == -1){ 
         printf("setup wiringPi faiservo !");
-        return 1; 
     };
 	
 	pinMode(trigPin, OUTPUT);
