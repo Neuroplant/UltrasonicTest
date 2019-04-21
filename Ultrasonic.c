@@ -21,6 +21,33 @@ float SArray[30][2];
 long StartTime, EndTime;   
 int flip = TRUE;
 
+int pulseIn(int pin, int level, int timeout)
+{
+   struct timeval tn, t0, t1;
+   long micros;
+   gettimeofday(&t0, NULL);
+   micros = 0;
+   while (digitalRead(pin) != level)
+   {
+      gettimeofday(&tn, NULL);
+      if (tn.tv_sec > t0.tv_sec) micros = 1000000L; else micros = 0;
+      micros += (tn.tv_usec - t0.tv_usec);
+      if (micros > timeout) return 0;
+   }
+   gettimeofday(&t1, NULL);
+   while (digitalRead(pin) == level)
+   {
+      gettimeofday(&tn, NULL);
+      if (tn.tv_sec > t0.tv_sec) micros = 1000000L; else micros = 0;
+      micros = micros + (tn.tv_usec - t0.tv_usec);
+      if (micros > timeout) return 0;
+   }
+   if (tn.tv_sec > t1.tv_sec) micros = 1000000L; else micros = 0;
+   micros = micros + (tn.tv_usec - t1.tv_usec);
+   return micros;
+}
+
+
 void servoWriteMS(int pin, int ms){     //specific the unit for pulse(5-25ms) with specific duration output by servo pin: 0.1ms
     if(ms > SERVO_MAX_US) {
         printf("Pin: %i ms: %i too big\n",pin,ms);
@@ -44,23 +71,15 @@ void StartStopTimer (void) {
 	}
 }
 		
-float getSonar(void) {
-	// send trigger signal
-	digitalWrite(trigPin,HIGH);
-    	delayMicroseconds(10);
-	digitalWrite(trigPin,LOW);
-	while (digitalRead(echoPin)==LOW) {
-		clock_gettime(CLOCK_REALTIME, &Time1);
-		StartTime  = Time1.tv_nsec;
-	}
-	
-	while (digitalRead(echoPin)==HIGH) {
-		clock_gettime(CLOCK_REALTIME, &Time1);
-		EndTime = Time1.tv_nsec;	
-	}
-	float puls = EndTime-StartTime;
-	//float puls = Time2.tv_nsec - Time1.tv_nsec;
-	return (puls * 0,000000344444);
+float getSonar(){   // get the measurement results of ultrasonic module,with unit: cm
+    long pingTime;
+    float distance;
+    digitalWrite(trigPin,HIGH); //trigPin send 10us high level 
+    delayMicroseconds(10);
+    digitalWrite(trigPin,LOW);
+    pingTime = pulseIn(echoPin,HIGH,13200);   //read plus time of echoPin
+    distance = (float)pingTime * 340.0 / 2.0 / 10000.0; // the sound speed is 340m/s,and calculate distance
+    return distance;
 }
 	
 float getSonarP(int angle) {
@@ -71,6 +90,7 @@ float getSonarP(int angle) {
 	printf(" %3.2f cm an Position %i \n",distance,angle);
 	return distance;
 }
+
 
 void main(void) {
 	if(wiringPiSetup() == -1){ 
