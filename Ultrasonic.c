@@ -18,7 +18,7 @@
 
 struct timespec Time1;
 float SArray[30][2];
-int StartTime, EndTime;   
+long StartTime, EndTime;   
 int flip = TRUE;
 
 void servoWriteMS(int pin, int ms){     //specific the unit for pulse(5-25ms) with specific duration output by servo pin: 0.1ms
