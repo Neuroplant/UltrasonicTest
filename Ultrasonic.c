@@ -16,9 +16,10 @@
 #define SERVO_MAX_US	27
 
 
-struct timespec Time1, Time2,  rTime;
+struct timespec Time1;
 float SArray[30][2];
 int StartTime, EndTime;   
+bool flip;
 
 void servoWriteMS(int pin, int ms){     //specific the unit for pulse(5-25ms) with specific duration output by servo pin: 0.1ms
     if(ms > SERVO_MAX_US) {
@@ -35,13 +36,15 @@ void servoWriteMS(int pin, int ms){     //specific the unit for pulse(5-25ms) wi
 
 
 void StartStopTimer (void) {
-	if (digitalRead(echoPin)==HIGH) {
+	if (flip) {
 		clock_gettime(CLOCK_REALTIME, &Time1);
 		 StartTime  = Time1.tv_nsec;
+		flip=false;
 		 printf("\n Start %i",StartTime);
 	}else{
 		clock_gettime(CLOCK_REALTIME, &Time1);
 		EndTime = Time1.tv_nsec;
+		flip=true;
 	}
 }
 		
