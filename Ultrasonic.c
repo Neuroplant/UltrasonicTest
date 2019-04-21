@@ -6,6 +6,7 @@
 #include <pthread.h>
 #include <string.h>
 #include <softPwm.h>
+#include <stdio.h>
 
 
 #define servoPin_US     6   	//Ultraschall-Servo     out PWM
