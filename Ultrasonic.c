@@ -85,7 +85,7 @@ void main(void) {
 	float Fehler =0, Max = 0 , Min = 0;
 	int Minimum=0,Maximum=0;
 	for (int i=0;i<30;i++) {
-		Fehler = Fehler+abs(SArray[i][0]-SArray[i,1]);
+		Fehler = Fehler+abs(SArray[i][0]-SArray[i][1]);
 		if (SArray[i][0]>Max) {
 			Maximum = i;
 			Max = SArray[i][0];
