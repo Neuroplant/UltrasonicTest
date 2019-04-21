@@ -76,10 +76,10 @@ void main(void) {
 	
 	wiringPiISR (echoPin, INT_EDGE_BOTH, &StartStopTimer) ;
 	
-	for (i=SERVO_MIN_US;i<SERVO_MAX_US;i++) {
+	for (int i=SERVO_MIN_US;i<SERVO_MAX_US;i++) {
 		SArray[i,0]= getSonarP(i);
 	}
-	for (i=SERVO_MAX_US;i<SERVO_MIN_US;i--) {
+	for (int i=SERVO_MAX_US;i<SERVO_MIN_US;i--) {
 		SArray[i,1]= getSonarP(i);
 	}
 	float Fehler =0, Max = 0 , Min = 0;
