@@ -40,7 +40,7 @@ void StartStopTimer (void) {
 		clock_gettime(CLOCK_REALTIME, &Time1);
 		 StartTime  = Time1.tv_nsec;
 		flip=FALSE;
-		 printf("\n Start %i",StartTime);
+		// printf("\n Start %i",StartTime);
 	}else{
 		clock_gettime(CLOCK_REALTIME, &Time1);
 		EndTime = Time1.tv_nsec;
