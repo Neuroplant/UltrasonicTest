@@ -49,7 +49,7 @@ float getSonar(void) {
 	digitalWrite(trigPin,HIGH);
     	delayMicroseconds(10);
 	digitalWrite(trigPin,LOW);
-    	//delayMicroseconds(10);
+    	delayMicroseconds(10);
 	float puls = EndTime-StartTime;
 	//float puls = Time2.tv_nsec - Time1.tv_nsec;
 	return (puls * 340.0 / 2.0 / 10000.0);
