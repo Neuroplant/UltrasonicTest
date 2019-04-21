@@ -77,14 +77,14 @@ void main(void) {
 	wiringPiISR (echoPin, INT_EDGE_BOTH, &StartStopTimer) ;
 	
 	for (int i=SERVO_MIN_US;i<SERVO_MAX_US;i++) {
-		SArray[i,0]= getSonarP(i);
+		SArray[i][0]= getSonarP(i);
 	}
 	for (int i=SERVO_MAX_US;i<SERVO_MIN_US;i--) {
-		SArray[i,1]= getSonarP(i);
+		SArray[i][1]= getSonarP(i);
 	}
 	float Fehler =0, Max = 0 , Min = 0;
 	int Minimum=0,Maximum=0;
-	for (i=0;i<30;i++) {
+	for (int i=0;i<30;i++) {
 		Fehler = Fehler+abs(SArray[i][0]-SArray[i,1]);
 		if (SArray[i][0]>Max) {
 			Maximum = i;
