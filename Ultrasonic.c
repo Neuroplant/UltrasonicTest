@@ -36,16 +36,11 @@ void servoWriteMS(int pin, int ms){     //specific the unit for pulse(5-25ms) wi
 
 
 void StartStopTimer (void) {
-	if (flip) {
-		clock_gettime(CLOCK_REALTIME, &Time1);
-		 StartTime  = Time1.tv_nsec;
-		flip=FALSE;
-		printf("\n Start %i",StartTime);
-	}else{
+	clock_gettime(CLOCK_REALTIME, &Time1);
+	StartTime  = Time1.tv_nsec;
+	while (digitalRead(echoPin)) {
 		clock_gettime(CLOCK_REALTIME, &Time1);
 		EndTime = Time1.tv_nsec;
-		flip=TRUE;
-		printf(" Ende %i",EndTime);
 	}
 }
 		
@@ -79,7 +74,7 @@ void main(void) {
 	pinMode(servoPin_US,OUTPUT);
 	softPwmCreate(servoPin_US, 0, 200);
 	
-	wiringPiISR (echoPin, INT_EDGE_BOTH, &StartStopTimer) ;
+	wiringPiISR (echoPin, INT_EDGE_RISING, &StartStopTimer) ;
 	
 	for (int i=SERVO_MIN_US;i<SERVO_MAX_US;i++) {
 		SArray[i][0]= getSonarP(i);
