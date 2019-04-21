@@ -17,7 +17,7 @@
 
 
 struct timespec Time1, Time2;
-int SArray[30,2];
+int SArray[30][2];
 
 void servoWriteMS(int pin, int ms){     //specific the unit for pulse(5-25ms) with specific duration output by servo pin: 0.1ms
     if(ms > SERVO_MAX_US) {
