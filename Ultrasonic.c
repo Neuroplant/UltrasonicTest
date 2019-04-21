@@ -9,8 +9,8 @@
 
 
 #define servoPin_US     6   	//Ultraschall-Servo     out PWM
-#define trigPin         4   	//Ultraschall-Trigger   out digital
-#define echoPin         5   	//Ultraschall-Echo      in  digital
+#define trigPin         2   	//Ultraschall-Trigger   out digital
+#define echoPin         0   	//Ultraschall-Echo      in  digital
 #define	SERVO_MIN_US	5
 #define SERVO_MAX_US	27
 
