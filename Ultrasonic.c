@@ -49,8 +49,14 @@ float getSonar(void) {
 	digitalWrite(trigPin,HIGH);
     	delayMicroseconds(10);
 	digitalWrite(trigPin,LOW);
-    	delayMicroseconds(10);
-	wiringPiISR (echoPin, INT_EDGE_RISING, &StartStopTimer) ;
+	while (digitalRead(echoPin)==LOW) {
+		clock_gettime(CLOCK_REALTIME, &Time1);
+		StartTime  = Time1.tv_nsec;
+	}
+	while (digitalRead(echoPin)==HIGH) {
+		clock_gettime(CLOCK_REALTIME, &Time1);
+		EndTime = Time1.tv_nsec;	
+	}
 	float puls = EndTime-StartTime;
 	//float puls = Time2.tv_nsec - Time1.tv_nsec;
 	return (puls * 340.0 / 2.0 / 10000.0);
