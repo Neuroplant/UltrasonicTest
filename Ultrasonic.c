@@ -42,8 +42,6 @@ void StartStopTimer (void) {
 	}else{
 		clock_gettime(CLOCK_REALTIME, &Time1);
 		EndTime = Time1.tv_nsec;
-		 printf(" Ende %i",EndTime);
-
 	}
 }
 		
