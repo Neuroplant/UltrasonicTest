@@ -60,7 +60,7 @@ float getSonar(void) {
 	}
 	float puls = EndTime-StartTime;
 	//float puls = Time2.tv_nsec - Time1.tv_nsec;
-	return (puls * 340.0 / 2.0 / 10000.0);
+	return (puls * 0,000000344444);
 }
 	
 float getSonarP(int angle) {
