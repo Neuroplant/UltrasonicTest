@@ -52,13 +52,11 @@ float getSonar(void) {
 	while (digitalRead(echoPin)==LOW) {
 		clock_gettime(CLOCK_REALTIME, &Time1);
 		StartTime  = Time1.tv_nsec;
-		printf("s");
 	}
 	
 	while (digitalRead(echoPin)==HIGH) {
 		clock_gettime(CLOCK_REALTIME, &Time1);
 		EndTime = Time1.tv_nsec;	
-		printf("e");
 	}
 	float puls = EndTime-StartTime;
 	//float puls = Time2.tv_nsec - Time1.tv_nsec;
