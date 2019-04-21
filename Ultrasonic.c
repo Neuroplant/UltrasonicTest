@@ -38,9 +38,12 @@ void StartStopTimer (void) {
 	if (digitalRead(echoPin)==HIGH) {
 		clock_gettime(CLOCK_REALTIME, &Time1);
 		 StartTime  = Time1.tv_nsec;
+		 printf("\n Start %i",StartTime);
 	}else{
 		clock_gettime(CLOCK_REALTIME, &Time1);
 		EndTime = Time1.tv_nsec;
+		 printf(" Ende %i",EndTime);
+
 	}
 }
 		
